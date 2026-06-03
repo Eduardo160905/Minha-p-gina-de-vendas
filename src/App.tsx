@@ -9,6 +9,7 @@ import Testimonials from './components/Testimonials';
 import Services from './components/Services';
 import FAQ from './components/FAQ';
 import CTAFinal from './components/CTAFinal';
+import CheckoutSection from './components/CheckoutSection';
 import Footer from './components/Footer';
 import SobreMim from './pages/SobreMim';
 import Resultados from './pages/Resultados';
@@ -25,6 +26,7 @@ function HomePage() {
       <Services />
       <FAQ />
       <CTAFinal />
+      <CheckoutSection />
     </>
   );
 }

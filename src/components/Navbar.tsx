@@ -54,14 +54,13 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00e87a] to-[#00c4ff] flex items-center justify-center glow-green-sm">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 13L8 3L13 13" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M5 9H11" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <span className="text-sm font-bold font-['Poppins'] text-white tracking-tight">
+          <Link to="/" className="flex items-center group">
+            <img
+              src="/WhatsApp_Image_2026-06-03_at_09.51.43.jpeg"
+              alt="Eduardo | Marketing & Posicionamento"
+              className="h-10 w-10 rounded-lg object-cover object-center"
+            />
+            <span className="ml-2 text-sm font-bold font-['Poppins'] text-white tracking-tight hidden sm:inline">
               Eduardo <span className="text-gradient">| Marketing &amp; Posicionamento</span>
             </span>
           </Link>
