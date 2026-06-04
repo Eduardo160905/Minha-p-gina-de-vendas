@@ -48,16 +48,6 @@ export function useCheckoutForm() {
     }
   }, [errors]);
 
-  const formatarCelular = useCallback((value: string): string => {
-    const numeros = value.replace(/\D/g, '');
-    if (numeros.length <= 11) {
-      return numeros
-        .replace(/(\d{0})(\d)/, '$1')
-        .replace(/(\d{2})(\d)/, '($1) ')
-        .replace(/(\d{4,5})(\d{4})$/, '$1-$2');
-    }
-    return numeros.slice(0, 11).replace(/(\d{2})(\d)/, '($1) ').replace(/(\d{4,5})(\d{4})$/, '$1-$2');
-  }, []);
 
   const formatarCpfCnpj = useCallback((value: string): string => {
     const numeros = value.replace(/\D/g, '');
@@ -77,12 +67,6 @@ export function useCheckoutForm() {
       .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
   }, []);
 
-  const handleCelularChange = useCallback(
-    (value: string) => {
-      handleChange('celular', formatarCelular(value));
-    },
-    [handleChange, formatarCelular]
-  );
 
   const handleCpfCnpjChange = useCallback(
     (value: string) => {
@@ -182,7 +166,6 @@ export function useCheckoutForm() {
     isLoading,
     showSuccess,
     handleChange,
-    handleCelularChange,
     handleCpfCnpjChange,
     setTipoMensagem,
     setIsLoading,

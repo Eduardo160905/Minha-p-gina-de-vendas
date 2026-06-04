@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Edit3, Loader2, Check } from 'lucide-react';
 import { useCheckoutForm } from '../hooks/useCheckoutForm';
@@ -45,6 +46,8 @@ const ESTADOS = [
 ];
 
 export default function CheckoutSection() {
+  const [celular, setCelular] = useState('');
+
   const {
     formData,
     errors,
@@ -52,7 +55,6 @@ export default function CheckoutSection() {
     isLoading,
     showSuccess,
     handleChange,
-    handleCelularChange,
     handleCpfCnpjChange,
     setTipoMensagem,
     setIsLoading,
@@ -60,6 +62,25 @@ export default function CheckoutSection() {
     validar,
     resetForm,
   } = useCheckoutForm();
+
+  const formatarCelular = (valor: string): string => {
+    const apenasNumeros = valor.replace(/\D/g, '');
+    const limitado = apenasNumeros.slice(0, 11);
+
+    if (limitado.length <= 2) {
+      return `(${limitado}`;
+    } else if (limitado.length <= 7) {
+      return `(${limitado.slice(0, 2)}) ${limitado.slice(2)}`;
+    } else {
+      return `(${limitado.slice(0, 2)}) ${limitado.slice(2, 7)}-${limitado.slice(7)}`;
+    }
+  };
+
+  const handleCelularChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatado = formatarCelular(e.target.value);
+    setCelular(formatado);
+    handleChange('celular', formatado);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,6 +119,7 @@ export default function CheckoutSection() {
       setTimeout(() => {
         redirecionarWhatsApp(mensagem);
         resetForm();
+        setCelular('');
       }, 1500);
     } catch (error) {
       console.error('Erro ao enviar:', error);
@@ -200,11 +222,12 @@ export default function CheckoutSection() {
                 Celular
               </label>
               <input
-                type="text"
+                type="tel"
+                inputMode="numeric"
                 placeholder="(00) 00000-0000"
-                value={formData.celular}
-                onChange={(e) => handleCelularChange(e.target.value)}
-                maxLength={15}
+                value={celular}
+                onChange={handleCelularChange}
+                maxLength={16}
                 className={`w-full px-4 py-3 rounded-lg bg-white/5 border transition-all duration-200 outline-none ${
                   errors.celular
                     ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
